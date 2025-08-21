@@ -1,0 +1,6 @@
+plugins:
+  mall_enabled:
+    default: true
+    client: true
+    type: bool
+    description: "Enable mall plugin"

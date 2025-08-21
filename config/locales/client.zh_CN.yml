@@ -1,0 +1,10 @@
+zh_CN:
+  js:
+    mall:
+      nav_title: "商城"
+      admin_page_title: "商城管理"
+      admin_hint: "这里是商城插件的管理页（示例）。"
+      goto_front: "打开前台"
+      open_mall: "打开商城"
+      view_log: "运行日志路径"
+      log_tip: "SSH 登录容器后可实时查看：tail -f public/mall.txt"

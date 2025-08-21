@@ -1,0 +1,5 @@
+zh_CN:
+  mall:
+    admin_nav_title: "商城"
+  site_settings:
+    mall_enabled: "启用商城插件"
