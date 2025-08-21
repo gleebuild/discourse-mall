@@ -1,0 +1,25 @@
+<div class="mall-show" style="max-width:1000px;margin:0 auto;padding:1rem;">
+  <a href="/mall">&larr; 返回商城</a>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;">
+    <div style="flex:1 1 360px;">
+      <% if @product.image_url.present? %>
+        <img src="<%= @product.image_url %>" style="width:100%;border-radius:10px;border:1px solid #eee"/>
+      <% end %>
+      <% if @product.video_url.present? %>
+        <video src="<%= @product.video_url %>" controls style="margin-top:12px;width:100%;border-radius:10px;"></video>
+      <% end %>
+    </div>
+    <div style="flex:1 1 360px;">
+      <h2><%= @product.title %></h2>
+      <div><strong><%= (@product.price_cents || 0)/100.0 %> <%= @product.currency || "CNY" %></strong></div>
+      <p style="white-space:pre-wrap"><%= @product.description %></p>
+
+      <form action="/mall/checkout" method="get" style="margin-top:16px;">
+        <input type="hidden" name="product_id" value="<%= @product.id %>"/>
+        <label>数量：</label>
+        <input type="number" name="qty" value="1" min="1" style="width:100px"/>
+        <button type="submit">去下单</button>
+      </form>
+    </div>
+  </div>
+</div>

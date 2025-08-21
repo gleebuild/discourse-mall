@@ -1,0 +1,91 @@
+<div class="mall-admin" style="max-width:1100px;margin:0 auto;padding:1rem;">
+  <h2>商城管理</h2>
+
+  <h3>创建产品</h3>
+  <form action="/mall/admin/products" method="post" enctype="multipart/form-data">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div>标题：<input name="product[title]" required style="width:400px"/></div>
+    <div>描述：<textarea name="product[description]" rows="3" style="width:400px"></textarea></div>
+    <div>价格(分)：<input name="product[price_cents]" value="10000"/></div>
+    <div>币种：<input name="product[currency]" value="CNY"/></div>
+    <div>库存：<input name="product[stock]" value="999999"/></div>
+    <div>状态：
+      <select name="product[status]">
+        <option value="active">上架</option>
+        <option value="draft">草稿</option>
+        <option value="archived">归档</option>
+      </select>
+    </div>
+    <div>主图(上传到本服)：<input type="file" name="product[image]" accept="image/*"/></div>
+    <div>视频(上传到本服)：<input type="file" name="product[video]" accept="video/*"/></div>
+    <button type="submit">创建产品</button>
+  </form>
+
+  <h3 style="margin-top:24px;">创建优惠券</h3>
+  <form action="/mall/admin/coupons" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div>码：<input name="coupon[code]" required/></div>
+    <div>类型：
+      <select name="coupon[discount_type]">
+        <option value="amount">直减(分)</option>
+        <option value="percent">折扣(%)</option>
+      </select>
+    </div>
+    <div>直减金额(分)：<input name="coupon[value_cents]"/></div>
+    <div>折扣百分比：<input name="coupon[value_percent]"/></div>
+    <div>有效期(可空，ISO时间)：<input name="coupon[expires_at]" placeholder="2025-12-31T23:59:59Z"/></div>
+    <button type="submit">创建优惠券</button>
+  </form>
+
+  <h3 style="margin-top:24px;">产品列表</h3>
+  <table border="1" cellpadding="4" cellspacing="0">
+    <tr><th>ID</th><th>标题</th><th>价格</th><th>状态</th><th>图</th></tr>
+    <% @products.each do |p| %>
+      <tr>
+        <td><%= p.id %></td>
+        <td><%= p.title %></td>
+        <td><%= (p.price_cents || 0)/100.0 %> <%= p.currency || "CNY" %></td>
+        <td><%= p.status %></td>
+        <td><% if p.image_url %><img src="<%= p.image_url %>" style="height:40px"/><% end %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <h3 style="margin-top:24px;">优惠券</h3>
+  <table border="1" cellpadding="4" cellspacing="0">
+    <tr><th>ID</th><th>码</th><th>类型</th><th>数值</th><th>有效期</th></tr>
+    <% @coupons.each do |c| %>
+      <tr>
+        <td><%= c.id %></td>
+        <td><%= c.code %></td>
+        <td><%= c.discount_type %></td>
+        <td><%= c.discount_type == "amount" ? "#{c.value_cents}分" : "#{c.value_percent}%" %></td>
+        <td><%= c.expires_at %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <h3 style="margin-top:24px;">订单</h3>
+  <table border="1" cellpadding="4" cellspacing="0">
+    <tr><th>ID</th><th>SN</th><th>用户</th><th>商品</th><th>数量</th><th>金额</th><th>状态</th><th>物流</th></tr>
+    <% @orders.each do |o| %>
+      <tr>
+        <td><%= o.id %></td>
+        <td><%= o.sn %></td>
+        <td><%= o.user_id %></td>
+        <td><%= o.product_title %> <%= o.variant_title %></td>
+        <td><%= o.qty %></td>
+        <td><%= (o.total_cents || 0)/100.0 %> <%= o.currency %></td>
+        <td><%= o.status %></td>
+        <td>
+          <form action="/mall/admin/orders/<%= o.id %>/ship" method="post" style="display:flex;gap:6px;">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input name="ship_company" placeholder="快递公司"/>
+            <input name="ship_sn" placeholder="单号"/>
+            <button type="submit">录入</button>
+          </form>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

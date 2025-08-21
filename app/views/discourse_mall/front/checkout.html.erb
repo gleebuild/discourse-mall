@@ -1,0 +1,32 @@
+<div class="mall-checkout" style="max-width:800px;margin:0 auto;padding:1rem;">
+  <a href="/mall">&larr; 返回商城</a>
+  <h2>下单</h2>
+  <% if @product %>
+    <p>商品：<strong><%= @product.title %></strong></p>
+    <p>数量：<%= @qty %>，应付金额：<%= ((@product.price_cents || 0) * @qty) / 100.0 %> <%= @product.currency || "CNY" %></p>
+  <% end %>
+  <form action="/mall/orders" method="post">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input type="hidden" name="order[product_id]" value="<%= @product&.id %>"/>
+    <input type="hidden" name="order[qty]" value="<%= @qty %>"/>
+
+    <div>收件人：<input name="order[receiver]" required/></div>
+    <div>电话：<input name="order[phone]" required/></div>
+    <div>国家：<input name="order[country]" required/></div>
+    <div>省份：<input name="order[province]" required/></div>
+    <div>城市：<input name="order[city]" required/></div>
+    <div>地址：<input name="order[address]" required style="width:100%"/></div>
+    <div>邮编：<input name="order[postcode]"/></div>
+    <div>优惠码：<input name="order[coupon_code]"/></div>
+
+    <div style="margin-top:8px;">
+      支付方式：
+      <label><input type="radio" name="order[provider]" value="wechat"/> 微信支付</label>
+      <label><input type="radio" name="order[provider]" value="paypal"/> PayPal</label>
+      <label><input type="radio" name="order[provider]" value="mock" checked/> 测试支付</label>
+    </div>
+
+    <button type="submit" style="margin-top:10px;">提交订单</button>
+  </form>
+  <p style="color:#888">提示：测试支付会直接把订单标记为已支付。</p>
+</div>
