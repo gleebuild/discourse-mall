@@ -1,0 +1,23 @@
+
+<!doctype html><meta charset="utf-8">
+<div class="mall-hero">
+  <h2><%= @product.title %></h2>
+  <p><%= @product.description %></p>
+</div>
+<div class="mall-form" style="max-width:680px;margin:10px 20px">
+  <form action="/mall/checkout" method="get">
+    <input type="hidden" name="product_id" value="<%= @product.id %>">
+    <label>规格</label>
+    <select name="variant_id">
+      <option value="">默认款（¥ <%= (@product.price_cents/100.0).round(2) %>）</option>
+      <% @variants.each do |v| %>
+        <option value="<%= v.id %>"><%= v.title %>（¥ <%= (v.price_cents/100.0).round(2) %>）</option>
+      <% end %>
+    </select>
+    <label>数量</label>
+    <input type="number" name="qty" value="1" min="1">
+    <label>优惠券码（可选）</label>
+    <input name="coupon" placeholder="输入优惠券码">
+    <button class="btn btn-primary" type="submit" style="margin-top:12px">去下单</button>
+  </form>
+</div>

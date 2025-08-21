@@ -1,0 +1,58 @@
+
+<!doctype html><meta charset="utf-8">
+<div class="mall-hero"><h2>填写收货信息</h2></div>
+<div class="mall-form" style="max-width:720px;margin:10px 20px">
+  <p>应付金额：<b>¥ <%= (@pay_cents/100.0).round(2) %></b> <small>(<%= @currency %>)</small></p>
+  <form action="/mall/orders" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="product_title" value="<%= @product&.title %>">
+    <input type="hidden" name="variant_title" value="<%= @variant&.title %>">
+    <input type="hidden" name="qty" value="<%= @qty %>">
+    <input type="hidden" name="total_cents" value="<%= @pay_cents %>">
+    <input type="hidden" name="coupon_code" value="<%= @coupon_code %>">
+    <div class="row">
+      <div>
+        <label>收件人</label>
+        <input name="recipient" required>
+      </div>
+      <div>
+        <label>电话</label>
+        <input name="phone" required>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>国家</label>
+        <input name="country" value="中国">
+      </div>
+      <div>
+        <label>省份</label>
+        <input name="province">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>城市</label>
+        <input name="city">
+      </div>
+      <div>
+        <label>邮编（选填）</label>
+        <input name="postcode">
+      </div>
+    </div>
+    <label>详细地址</label>
+    <input name="address" required>
+
+    <label style="margin-top:12px">支付方式</label>
+    <select name="provider" required>
+      <% if SiteSetting.mall_wechat_enabled %><option value="wechat">微信支付</option><% end %>
+      <% if SiteSetting.mall_paypal_enabled %><option value="paypal">PayPal</option><% end %>
+      <option value="mock">测试支付（直接成功）</option>
+    </select>
+
+    <div style="margin-top:14px">
+      <button class="btn btn-primary" type="submit">立即支付</button>
+      <a class="btn" href="/mall">返回</a>
+    </div>
+  </form>
+</div>

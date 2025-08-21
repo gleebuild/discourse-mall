@@ -1,0 +1,10 @@
+
+zh_CN:
+  site_settings:
+    mall_enabled: 启用商城插件
+    mall_route_prefix: 商城路由前缀
+    mall_currency: 币种
+    mall_wechat_enabled: 启用微信支付（占位，实际由子插件接入）
+    mall_paypal_enabled: 启用PayPal（占位，实际由子插件接入）
+  mall:
+    admin_title: 商城
