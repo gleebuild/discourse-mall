@@ -1,0 +1,13 @@
+
+<div class="mall-admin">
+  <h1>{{i18n "mall.admin_nav_title"}}</h1>
+  <p>这里是商城插件的管理页占位内容。前往 <a target="_blank" href="/mall">/mall</a> 体验前台路由。</p>
+  <p>服务器日志会写入：<code>/var/www/discourse/public/mall.txt</code>。</p>
+  <hr>
+  <h3>测试上传（表单直传服务器）</h3>
+  <input id="mall-file" type="file" />
+  <button class="btn btn-primary" {{on "click" this.upload}}>上传</button>
+  {{#if this.result}}
+    <p>上传成功：<a href="{{this.result.url}}" target="_blank">{{this.result.url}}</a></p>
+  {{/if}}
+</div>

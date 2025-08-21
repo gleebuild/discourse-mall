@@ -1,0 +1,11 @@
+
+en:
+  site_settings:
+    mall_enabled: "Enable the Mall plugin"
+  mall:
+    admin_nav_title: "Mall"
+zh_CN:
+  site_settings:
+    mall_enabled: "启用 Mall 插件"
+  mall:
+    admin_nav_title: "商城"
