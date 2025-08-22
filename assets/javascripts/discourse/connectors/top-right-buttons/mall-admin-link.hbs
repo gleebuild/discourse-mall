@@ -1,0 +1,4 @@
+{{! Renders a button that only shows for allowed mall admins }}
+{{#if this.currentUser.mall_admin}}
+  <a href="/mall/admin" class="btn btn-primary">{{i18n "mall.admin_nav_title"}}</a>
+{{/if}}

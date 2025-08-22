@@ -1,0 +1,4 @@
+en:
+  site_settings:
+    mall_enabled: "Enable Mall plugin"
+    mall_admin_usernames: "Usernames allowed to access Mall admin (comma separated)"

@@ -1,0 +1,7 @@
+mall:
+  mall_enabled:
+    default: true
+    client: true
+  mall_admin_usernames:
+    default: "gleebuildx"
+    client: true

@@ -1,0 +1,4 @@
+zh_CN:
+  site_settings:
+    mall_enabled: "启用商城插件"
+    mall_admin_usernames: "允许访问商城管理后台的用户名（用逗号分隔）"
