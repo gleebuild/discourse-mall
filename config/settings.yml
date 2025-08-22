@@ -1,4 +1,0 @@
-plugins:
-  mall_enabled:
-    default: true
-    client: true
