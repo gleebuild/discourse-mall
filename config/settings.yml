@@ -1,0 +1,12 @@
+plugins:
+  discourse_mall_enabled:
+    default: true
+    hidden: true
+
+mall_enabled:
+  default: true
+  client: true
+  type: bool
+  description:
+    zh_CN: 启用商场插件
+    en: Enable mall plugin
